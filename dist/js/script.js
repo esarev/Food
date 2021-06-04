@@ -255,10 +255,11 @@ window.addEventListener('DOMContentLoaded', () => {
             `;
             form.insertAdjacentElement('afterend', statusMessage);
             
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
+            // const request = new XMLHttpRequest();
+            // request.open('POST', 'server.php');
+            
 
-            request.setRequestHeader('Content-type', 'aplication/json; charset=utf-8' );
+            // request.setRequestHeader('Content-type', 'aplication/json; charset=utf-8' );
             const formData = new FormData(form);
 
             const object = {};
@@ -266,20 +267,38 @@ window.addEventListener('DOMContentLoaded', () => {
                 object[key] = value;
             });
 
-            const json = JSON.stringify(object);
+            
 
-            request.send(json);
-
-            request.addEventListener('load', () => {
-                if (request.status === 200) {
-                    console.log(request.response);
-                    showThanksModal(message.succes);
-                    statusMessage.remove();
-                    form.reset();                  
-                } else {
-                    showThanksModal(message.error);
-                }
+            // request.send(json);
+            
+            fetch('server.php', {
+                method: "POST",
+                headers: {
+                    'Content-type': 'aplication/json'
+                },
+                body: JSON.stringify(object)
+            })
+            .then(data => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.succes);
+                statusMessage.remove();
+            }).catch(() => {
+                showThanksModal(message.error);
+            }).finaly (() => {
+                form.reset();
             });
+
+            // request.addEventListener('load', () => {
+            //     if (request.status === 200) {
+            //         console.log(request.response);
+            //         showThanksModal(message.succes);
+            //         statusMessage.remove();
+            //         form.reset();                  
+            //     } else {
+            //         showThanksModal(message.error);
+            //     }
+            // });
         });
     }
 
@@ -307,5 +326,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
     
+    // fetch('https://jsonplaceholder.typicode.com/posts', {
+    //     method: "POST",
+    //     body: JSON.stringify({name: 'Alex'}),
+    //     headers: {
+    //         'Content-type': 'applocation/json'
+    //     }
+    // })
+    // .then(response => response.json())
+    // .then(json => console.log(json));
 });
 
