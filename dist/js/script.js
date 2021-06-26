@@ -4,9 +4,9 @@ window.addEventListener('DOMContentLoaded', () => {
     
     // Tabs
 
-    const tabs = document.querySelectorAll('.tabheader__item'),
-          tabsContent = document.querySelectorAll('.tabcontent'),
-          tabsParent = document.querySelector('.tabheader__items');
+    let tabs = document.querySelectorAll('.tabheader__item'),
+		tabsContent = document.querySelectorAll('.tabcontent'),
+		tabsParent = document.querySelector('.tabheader__items');
 
     function hideTabContent() {
         tabsContent.forEach(item => {
@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const deadline = '2021-06-05';
+    const deadline = '2021-07-05';
 
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date ()),
@@ -107,28 +107,29 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const modalTrigger = document.querySelectorAll('[data-modal]'),
           modal = document.querySelector('.modal');
-        //   modalCloseBtn = document.querySelector('[data-close]');
+          modalCloseBtn = document.querySelector('[data-close]');
+
+	modalTrigger.forEach(btn => {
+		btn.addEventListener('click', openModal);
+	});
+
+	function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        // modal.classList.toggle('show');
+        document.body.style.overflow = '';
+    }
 
     function openModal() {
-        // modal.classList.add('show');
-        // modal.classList.remove('hide');
-        modal.classList.toggle('show');
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        // modal.classList.toggle('show');
         document.body.style.overflow = 'hidden';
         clearInterval(modalTimerId);
     }  
 
-    modalTrigger.forEach(btn => {
-        btn.addEventListener('click', openModal);
-    });
 
-    function closeModal() {
-        // modal.classList.add('hide');
-        // modal.classList.remove('show');
-        modal.classList.toggle('show');
-        document.body.style.overflow = '';
-    }
-
-    // modalCloseBtn.addEventListener('click', closeModal);
+    modalCloseBtn.addEventListener('click', closeModal);
 
     modal.addEventListener('click', (e) => {
         if(e.target === modal || e.target.getAttribute('data-close') == "") {
