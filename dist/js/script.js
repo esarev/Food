@@ -107,7 +107,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const modalTrigger = document.querySelectorAll('[data-modal]'),
           modal = document.querySelector('.modal');
-          modalCloseBtn = document.querySelector('[data-close]');
+        //   modalCloseBtn = document.querySelector('[data-close]');
 
 	modalTrigger.forEach(btn => {
 		btn.addEventListener('click', openModal);
@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }  
 
 
-    modalCloseBtn.addEventListener('click', closeModal);
+    // modalCloseBtn.addEventListener('click', closeModal);
 
     modal.addEventListener('click', (e) => {
         if(e.target === modal || e.target.getAttribute('data-close') == "") {
@@ -236,7 +236,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const message = {
         loading: 'img/forms/spinner.svg',
-        succes: 'Спасибо! Ваша заявка принята',
+        success: 'Спасибо! Ваша заявка принята',
         error: 'Что-то пошло не так...'
     };
 
@@ -278,16 +278,17 @@ window.addEventListener('DOMContentLoaded', () => {
                     'Content-type': 'aplication/json'
                 },
                 body: JSON.stringify(object)
-            }).then(data => data.text())
-              .then(data => {
+            }).then(data => {
                 console.log(data);
-                showThanksModal(message.succes);
+                showThanksModal(message.success);
                 statusMessage.remove();
             }).catch(() => {
                 showThanksModal(message.error);
             }).finally (() => {
                 form.reset();
             });
+
+            // .then(data => data.text())
 
             // request.addEventListener('load', () => {
             //     if (request.status === 200) {
