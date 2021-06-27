@@ -278,15 +278,14 @@ window.addEventListener('DOMContentLoaded', () => {
                     'Content-type': 'aplication/json'
                 },
                 body: JSON.stringify(object)
-            })
-            .then(data => data.text())
-            .then(data => {
+            }).then(data => data.text())
+              .then(data => {
                 console.log(data);
                 showThanksModal(message.succes);
                 statusMessage.remove();
             }).catch(() => {
                 showThanksModal(message.error);
-            }).finaly (() => {
+            }).finally (() => {
                 form.reset();
             });
 
@@ -327,14 +326,14 @@ window.addEventListener('DOMContentLoaded', () => {
         }, 4000);
     }
     
-    // fetch('https://jsonplaceholder.typicode.com/posts', {
-    //     method: "POST",
-    //     body: JSON.stringify({name: 'Alex'}),
-    //     headers: {
-    //         'Content-type': 'applocation/json'
-    //     }
-    // })
-    // .then(response => response.json())
-    // .then(json => console.log(json));
+    fetch('https://jsonplaceholder.typicode.com/posts', {
+        method: "POST",
+        body: JSON.stringify({name: 'Alex'}),
+        headers: {
+            'Content-type': 'applocation/json'
+        }
+    })
+    .then(response => response.json())
+    .then(json => console.log(json));
 });
 
