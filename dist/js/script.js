@@ -236,7 +236,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     const message = {
         loading: 'img/forms/spinner.svg',
-        success: 'Cпасибо! Ваша заявка принята',
+        success: 'Спасибо! Ваша заявка принята',
         error: 'Что-то пошло не так...'
     };
 
@@ -338,5 +338,9 @@ window.addEventListener('DOMContentLoaded', () => {
     // })
     // .then(response => response.json())
     // .then(json => console.log(json));
+
+    fetch('http://localhost:3000/menu')
+    .then(data => data.json)
+    .then(res => console.log(res));
 });
 
