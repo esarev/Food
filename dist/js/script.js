@@ -351,13 +351,13 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     //Slider
-
-    const slides = document.querySelectorAll('.offer__slide'),
-          prev = document.querySelector('.offer__slider-prev'),
-          next = document.querySelector('.offer__slider-next'),
-          total = document.querySelector('#total'),
-          current = document.querySelector('#current');
     let slideIndex = 1;
+    const slides = document.querySelectorAll('.offer__slide'),
+        prev = document.querySelector('.offer__slider-prev'),
+        next = document.querySelector('.offer__slider-next'),
+        total = document.querySelector('#total'),
+        current = document.querySelector('#current');
+    
 
     showSlides(slideIndex);
 
@@ -380,7 +380,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
         slides[slideIndex - 1].style.display = 'block';
 
-        if (slides.length < 10) {
+        if (slideIndex < 10) {
             current.textContent = `0${slideIndex}`;
         } else {
             current.textContent = slideIndex;
