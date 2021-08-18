@@ -127,4 +127,4 @@ function calc() {
   .then(res => console.log(res));
 }
 
-module.exports = calc;
+export default calc;
