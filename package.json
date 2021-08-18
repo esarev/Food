@@ -8,16 +8,19 @@
   "author": "",
   "license": "ISC",
   "browserslist": [
+    ">1%",
     "last 2 chrome versions",
     "last 2 firefox versions",
     "last 2 ios versions"
   ],
   "devDependencies": {
-    "@babel/core": "^7.7.0",
-    "@babel/preset-env": "^7.7.1",
+    "@babel/cli": "^7.14.8",
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
     "autoprefixer": "^9.7.1",
-    "babel-loader": "^8.0.6",
+    "babel-loader": "^8.2.2",
     "browser-sync": "^2.27.3",
+    "core-js": "^3.16.2",
     "gulp": "^4.0.2",
     "gulp-clean-css": "^4.2.0",
     "gulp-postcss": "^8.0.0",
@@ -35,7 +38,11 @@
     "url": "https://github.com/esarev/Food/issues"
   },
   "homepage": "https://github.com/esarev/Food#readme",
-  "dependencies": {},
+  "dependencies": {
+    "@babel/polyfill": "^7.12.1",
+    "es6-promise": "^4.2.8",
+    "nodelist-foreach-polyfill": "^1.2.0"
+  },
   "keywords": [],
   "description": ""
 }

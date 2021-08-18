@@ -1,10 +1,11 @@
 
 import {closeModal, openModal} from './modal';
+import {postData} from '../services/services';
 
-function forms(modalTimerId) {
+function forms(formSelector, modalTimerId) {
   // Forms
 
-  const forms = document.querySelectorAll('form');
+  const forms = document.querySelectorAll(formSelector);
 
   const message = {
     loading: 'img/forms/spinner.svg',
@@ -16,68 +17,56 @@ function forms(modalTimerId) {
     bindpostData(item);
   });
 
-  const postData = async (url, data) => {
-  let res = await fetch( url, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: data
-  });
+  function bindpostData(form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
 
-  return await res.json();
-};
+      let statusMessage = document.createElement('img');
+      statusMessage.src = message.loading;
+      statusMessage.style.cssText = `
+        display: block;
+        margin: 0 auto;
+      `;
+      form.insertAdjacentElement('afterend', statusMessage);
+      
+      // const request = new XMLHttpRequest();
+      // request.open('POST', 'server.php');
+      
 
-function bindpostData(form) {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
+      // request.setRequestHeader('Content-type', 'aplication/json; charset=utf-8' );
+      const formData = new FormData(form);
 
-    let statusMessage = document.createElement('img');
-    statusMessage.src = message.loading;
-    statusMessage.style.cssText = `
-      display: block;
-      margin: 0 auto;
-    `;
-    form.insertAdjacentElement('afterend', statusMessage);
-    
-    // const request = new XMLHttpRequest();
-    // request.open('POST', 'server.php');
-    
+      const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-    // request.setRequestHeader('Content-type', 'aplication/json; charset=utf-8' );
-    const formData = new FormData(form);
+      
 
-    const json = JSON.stringify(Object.fromEntries(formData.entries()));
+      // request.send(json);
+      
+      postData('http://localhost:3000/requests', json)
+      .then(data => {
+        console.log(data);
+        showThanksModal(message.success);
+        statusMessage.remove();
+      }).catch(() => {
+        showThanksModal(message.error);
+      }).finally (() => {
+        form.reset();
+      });
 
-    
+      
 
-    // request.send(json);
-    
-    postData('http://localhost:3000/requests', json)
-    .then(data => {
-      console.log(data);
-      showThanksModal(message.success);
-      statusMessage.remove();
-    }).catch(() => {
-      showThanksModal(message.error);
-    }).finally (() => {
-      form.reset();
+      // request.addEventListener('load', () => {
+      //     if (request.status === 200) {
+      //         console.log(request.response);
+      //         showThanksModal(message.succes);
+      //         statusMessage.remove();
+      //         form.reset();                  
+      //     } else {
+      //         showThanksModal(message.error);
+      //     }
+      // });
     });
-
-    
-
-    // request.addEventListener('load', () => {
-    //     if (request.status === 200) {
-    //         console.log(request.response);
-    //         showThanksModal(message.succes);
-    //         statusMessage.remove();
-    //         form.reset();                  
-    //     } else {
-    //         showThanksModal(message.error);
-    //     }
-    // });
-  });
-}
+  }
 
   function showThanksModal(message) {
     const prevModalDialog = document.querySelector('.modal__dialog');
